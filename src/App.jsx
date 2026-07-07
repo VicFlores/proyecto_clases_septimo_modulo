@@ -1,7 +1,7 @@
 import reactLogo from './assets/react.svg';
 import viteLogo from './assets/vite.svg';
 import heroImg from './assets/hero.png';
-import { Contador } from './components/Contador';
+import { MensajeBienvenida } from './components/MensajeBienvenida';
 import './App.css';
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
 
   return (
     <>
-      <Contador />
+      <MensajeBienvenida />
     </>
   );
 }
