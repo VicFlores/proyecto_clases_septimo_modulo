@@ -11,3 +11,15 @@ export const obtenerAlumnoPorId = async (id) => {
 
   return response.data;
 };
+
+export const crearAlumno = async (alumno) => {
+  const response = await api.post('/alumnos', alumno);
+
+  return response.data;
+};
+
+export const actualizarAlumno = async (id, alumno) => {
+  const response = await api.patch(`/alumnos/${id}`, alumno);
+
+  return response.data;
+};
