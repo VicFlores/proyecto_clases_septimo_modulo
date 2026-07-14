@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { obtenerAlumnoPorId } from '../services/alumnosService.js';
 
-export const DetalleAlumno = ({ idAlumno }) => {
+export const DetalleAlumno = ({ idAlumno, onCerrar }) => {
   const [alumno, setAlumno] = useState(null);
 
   useEffect(() => {
@@ -16,13 +16,21 @@ export const DetalleAlumno = ({ idAlumno }) => {
     };
 
     fetchAlumnoPorId();
-  }, []);
+  }, [idAlumno]);
 
   return (
     <div>
       <h2>Detalle del alumno</h2>
 
-      <p>Nombre: {alumno?.nombre}</p>
+      <p>
+        Nombre: {alumno?.nombre} {alumno?.apellido}
+      </p>
+
+      <p>Grado: {alumno?.grado}</p>
+
+      <p>Seccion: {alumno?.seccion}</p>
+
+      <button onClick={onCerrar}>Cerrar detalle</button>
     </div>
   );
 };
