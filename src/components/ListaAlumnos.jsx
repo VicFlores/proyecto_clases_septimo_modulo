@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { TarjetaAlumno } from './TarjetaAlumno';
 import { obtenerAlumnos } from '../services/alumnosService.js';
+import { useNavigate } from 'react-router-dom';
 
 const ELEMENTOS_POR_PAGINA = 2;
 
-export const ListaAlumnos = ({ onSeleccionarAlumno, onEditar, recargar }) => {
+export const ListaAlumnos = ({ recargar }) => {
+  const navigate = useNavigate();
   const [alumnos, setAlumnos] = useState([]);
   const [busqueda, setBusqueda] = useState('');
   const [gradoFiltro, setGradoFiltro] = useState('Todos');
@@ -82,8 +84,8 @@ export const ListaAlumnos = ({ onSeleccionarAlumno, onEditar, recargar }) => {
           apellido={alumno.apellido}
           grado={alumno.grado}
           seccion={alumno.seccion}
-          onSeleccionarAlumno={onSeleccionarAlumno}
-          onEditar={onEditar}
+          onSeleccionarAlumno={(id) => navigate(`/alumnos/${id}`)}
+          onEditar={(alumno) => navigate(`/alumnos/${alumno.id}/editar`)}
         />
       ))}
 
