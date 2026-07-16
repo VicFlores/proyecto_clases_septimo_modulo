@@ -2,10 +2,13 @@ import { useState, useEffect } from 'react';
 import { TarjetaAlumno } from './TarjetaAlumno';
 import { obtenerAlumnos } from '../services/alumnosService.js';
 
+const ELEMENTOS_POR_PAGINA = 2;
+
 export const ListaAlumnos = ({ onSeleccionarAlumno, onEditar, recargar }) => {
   const [alumnos, setAlumnos] = useState([]);
   const [busqueda, setBusqueda] = useState('');
   const [gradoFiltro, setGradoFiltro] = useState('Todos');
+  const [paginaActual, setPaginaActual] = useState(1);
 
   useEffect(() => {
     const fetchAlumnos = async () => {
@@ -21,6 +24,10 @@ export const ListaAlumnos = ({ onSeleccionarAlumno, onEditar, recargar }) => {
     fetchAlumnos();
   }, [recargar]);
 
+  useEffect(() => {
+    setPaginaActual(1);
+  }, [busqueda, gradoFiltro]);
+
   const alumnosFiltrados = alumnos.filter((alumno) => {
     const coincideNombre = `${alumno?.nombre} ${alumno?.apellido}`
       .toLowerCase()
@@ -32,8 +39,20 @@ export const ListaAlumnos = ({ onSeleccionarAlumno, onEditar, recargar }) => {
     return coincideNombre && coincideGrado;
   });
 
+  const totalPaginas = Math.ceil(
+    alumnosFiltrados.length / ELEMENTOS_POR_PAGINA,
+  );
+
+  const indiceInicio = (paginaActual - 1) * ELEMENTOS_POR_PAGINA;
+
+  const indiceFin = indiceInicio + ELEMENTOS_POR_PAGINA;
+
+  const alumnosPagina = alumnosFiltrados.slice(indiceInicio, indiceFin);
+
   return (
     <div>
+      <h2>Listado de alumnos</h2>
+
       <input
         type='text'
         placeholder='Buscar alumno por nombre...'
@@ -55,7 +74,7 @@ export const ListaAlumnos = ({ onSeleccionarAlumno, onEditar, recargar }) => {
         Mostrando: {alumnosFiltrados.length} alumnos de {alumnos.length}
       </p>
 
-      {alumnosFiltrados.map((alumno) => (
+      {alumnosPagina.map((alumno) => (
         <TarjetaAlumno
           key={alumno.id}
           id={alumno.id}
@@ -67,6 +86,26 @@ export const ListaAlumnos = ({ onSeleccionarAlumno, onEditar, recargar }) => {
           onEditar={onEditar}
         />
       ))}
+
+      {totalPaginas > 1 && (
+        <div>
+          <button onClick={() => setPaginaActual((anterior) => anterior - 1)}>
+            Anterior
+          </button>
+
+          {Array.from({ length: totalPaginas }, (_, index) => index + 1).map(
+            (pagina) => (
+              <button key={pagina} onClick={() => setPaginaActual(pagina)}>
+                {pagina}
+              </button>
+            ),
+          )}
+
+          <button onClick={() => setPaginaActual((anterior) => anterior + 1)}>
+            Siguiente
+          </button>
+        </div>
+      )}
     </div>
   );
 };
