@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { actualizarAlumno } from '../services/alumnosService';
-import { manejarError } from '../utils/manejarError';
-import { validarCampos } from '../utils/validarCampos';
+import { useState } from 'react';
+import { crearAlumno } from '../../services/alumnosService';
+import { manejarError } from '../../utils/manejarError';
+import { validarCampos } from '../../utils/validarCampos';
 
 const estadoInicial = {
   nombre: '',
@@ -10,18 +10,9 @@ const estadoInicial = {
   seccion: '',
 };
 
-export const FormularioEditar = ({ alumnoEditar, onGuardado, onCancelar }) => {
+export const FormularioCrear = ({ onGuardado, onCancelar }) => {
   const [campos, setCampos] = useState(estadoInicial);
   const [errores, setErrores] = useState({});
-
-  useEffect(() => {
-    setCampos({
-      nombre: alumnoEditar?.nombre,
-      apellido: alumnoEditar?.apellido,
-      grado: alumnoEditar?.grado,
-      seccion: alumnoEditar?.seccion,
-    });
-  }, [alumnoEditar]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,7 +34,7 @@ export const FormularioEditar = ({ alumnoEditar, onGuardado, onCancelar }) => {
     }
 
     try {
-      await actualizarAlumno(alumnoEditar.id, campos);
+      await crearAlumno(campos);
       onGuardado();
     } catch (error) {
       console.error('Error al momento de guardar un alumno');
@@ -53,7 +44,7 @@ export const FormularioEditar = ({ alumnoEditar, onGuardado, onCancelar }) => {
 
   return (
     <div>
-      <h2>Actualizar alumno</h2>
+      <h2>Registrar nuevo alumno</h2>
 
       <div>
         <label>Nombre</label>
@@ -105,7 +96,7 @@ export const FormularioEditar = ({ alumnoEditar, onGuardado, onCancelar }) => {
       </div>
 
       <div>
-        <button onClick={handleGuardar}>Actualizar alumno</button>
+        <button onClick={handleGuardar}>Registrar alumno</button>
 
         <button onClick={onCancelar}>Cancelar</button>
       </div>

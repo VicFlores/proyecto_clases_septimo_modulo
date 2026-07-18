@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { FormularioEditar } from '../components/FormularioEditar';
-import { obtenerAlumnoPorId } from '../services/alumnosService';
-import { manejarError } from '../utils/manejarError';
+import { FormularioEditar } from '../../components/FormularioEditar/FormularioEditar';
+import { obtenerAlumnoPorId } from '../../services/alumnosService';
 
 export const PaginaEditarAlumno = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [alumno, setAlumno] = useState(null);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchAlumnoPorId = async () => {
