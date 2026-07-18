@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { TarjetaAlumno } from '../TarjetaAlumno/TarjetaAlumno.jsx';
 import { obtenerAlumnos } from '../../services/alumnosService.js';
 import { useNavigate } from 'react-router-dom';
+import styles from './ListaAlumnos.module.css';
 
-const ELEMENTOS_POR_PAGINA = 2;
+const ELEMENTOS_POR_PAGINA = 3;
 
 export const ListaAlumnos = ({ recargar }) => {
   const navigate = useNavigate();
@@ -76,18 +77,20 @@ export const ListaAlumnos = ({ recargar }) => {
         Mostrando: {alumnosFiltrados.length} alumnos de {alumnos.length}
       </p>
 
-      {alumnosPagina.map((alumno) => (
-        <TarjetaAlumno
-          key={alumno.id}
-          id={alumno.id}
-          nombre={alumno.nombre}
-          apellido={alumno.apellido}
-          grado={alumno.grado}
-          seccion={alumno.seccion}
-          onSeleccionarAlumno={(id) => navigate(`/alumnos/${id}`)}
-          onEditar={(alumno) => navigate(`/alumnos/${alumno.id}/editar`)}
-        />
-      ))}
+      <div className={styles.lista}>
+        {alumnosPagina.map((alumno) => (
+          <TarjetaAlumno
+            key={alumno.id}
+            id={alumno.id}
+            nombre={alumno.nombre}
+            apellido={alumno.apellido}
+            grado={alumno.grado}
+            seccion={alumno.seccion}
+            onSeleccionarAlumno={(id) => navigate(`/alumnos/${id}`)}
+            onEditar={(alumno) => navigate(`/alumnos/${alumno.id}/editar`)}
+          />
+        ))}
+      </div>
 
       {totalPaginas > 1 && (
         <div>

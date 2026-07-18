@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import styles from './TarjetaAlumno.module.css';
 
 export const TarjetaAlumno = ({
   id,
@@ -14,8 +15,8 @@ export const TarjetaAlumno = ({
   const toggleMatricula = () => setMatriculaActiva((prevState) => !prevState);
 
   return (
-    <div>
-      <h2>
+    <div className={styles.tarjeta}>
+      <h2 className={styles.nombre}>
         Nombre: {nombre} {apellido}
       </h2>
 

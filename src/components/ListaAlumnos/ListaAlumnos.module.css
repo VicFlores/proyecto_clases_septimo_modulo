@@ -1,0 +1,22 @@
+/* Base: movil una sola columna */
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Tablets (768px en adelante):  */
+@media (min-width: 768px) {
+  .lista {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Latop (1024px en adelante):  */
+@media (min-width: 1024px) {
+  .lista {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

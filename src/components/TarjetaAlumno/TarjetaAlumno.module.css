@@ -1,0 +1,10 @@
+.tarjeta {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.nombre {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
