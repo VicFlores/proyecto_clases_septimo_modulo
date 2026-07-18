@@ -26,7 +26,12 @@ export const TarjetaAlumno = ({
 
       <p>Estado de matricula: {matriculaActiva ? 'Activa' : 'Inactiva'}</p>
 
-      <button onClick={toggleMatricula}>
+      <button
+        className={
+          matriculaActiva ? styles.estadoActivo : styles.estadoInactivo
+        }
+        onClick={toggleMatricula}
+      >
         {matriculaActiva ? 'Desactivar matricula' : 'Activar matricula'}
       </button>
 
