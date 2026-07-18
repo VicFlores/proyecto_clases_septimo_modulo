@@ -17,7 +17,6 @@ export const ListaAlumnos = ({ recargar }) => {
     const fetchAlumnos = async () => {
       try {
         const res = await obtenerAlumnos();
-
         setAlumnos(res);
       } catch (error) {
         console.error('Error al obtener los alumnos:', error);
@@ -47,33 +46,35 @@ export const ListaAlumnos = ({ recargar }) => {
   );
 
   const indiceInicio = (paginaActual - 1) * ELEMENTOS_POR_PAGINA;
-
   const indiceFin = indiceInicio + ELEMENTOS_POR_PAGINA;
-
   const alumnosPagina = alumnosFiltrados.slice(indiceInicio, indiceFin);
 
   return (
-    <div>
-      <h2>Listado de alumnos</h2>
+    <div className={styles.contenedor}>
+      <h2 className={styles.titulo}>Listado de alumnos</h2>
 
-      <input
-        type='text'
-        placeholder='Buscar alumno por nombre...'
-        value={busqueda}
-        onChange={(e) => setBusqueda(e.target.value)}
-      />
+      <div className={styles.controles}>
+        <input
+          type='text'
+          placeholder='Buscar alumno por nombre...'
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+          className={styles.inputBusqueda}
+        />
 
-      <select
-        value={gradoFiltro}
-        onChange={(e) => setGradoFiltro(e.target.value)}
-      >
-        <option value='Todos'>Todos los grados</option>
-        <option value='7to'>7° grado</option>
-        <option value='8to'>8° grado</option>
-        <option value='9to'>9° grado</option>
-      </select>
+        <select
+          value={gradoFiltro}
+          onChange={(e) => setGradoFiltro(e.target.value)}
+          className={styles.selectFiltro}
+        >
+          <option value='Todos'>Todos los grados</option>
+          <option value='7to'>7° grado</option>
+          <option value='8to'>8° grado</option>
+          <option value='9to'>9° grado</option>
+        </select>
+      </div>
 
-      <p>
+      <p className={styles.contador}>
         Mostrando: {alumnosFiltrados.length} alumnos de {alumnos.length}
       </p>
 
@@ -93,20 +94,32 @@ export const ListaAlumnos = ({ recargar }) => {
       </div>
 
       {totalPaginas > 1 && (
-        <div>
-          <button onClick={() => setPaginaActual((anterior) => anterior - 1)}>
+        <div className={styles.paginacion}>
+          <button
+            onClick={() => setPaginaActual((anterior) => anterior - 1)}
+            disabled={paginaActual === 1}
+            className={styles.btnPagina}
+          >
             Anterior
           </button>
 
           {Array.from({ length: totalPaginas }, (_, index) => index + 1).map(
             (pagina) => (
-              <button key={pagina} onClick={() => setPaginaActual(pagina)}>
+              <button
+                key={pagina}
+                onClick={() => setPaginaActual(pagina)}
+                className={`${styles.btnPagina} ${paginaActual === pagina ? styles.btnActivo : ''}`}
+              >
                 {pagina}
               </button>
             ),
           )}
 
-          <button onClick={() => setPaginaActual((anterior) => anterior + 1)}>
+          <button
+            onClick={() => setPaginaActual((anterior) => anterior + 1)}
+            disabled={paginaActual === totalPaginas}
+            className={styles.btnPagina}
+          >
             Siguiente
           </button>
         </div>
