@@ -16,10 +16,10 @@ export const FormularioEditar = ({ alumnoEditar, onGuardado, onCancelar }) => {
 
   useEffect(() => {
     setCampos({
-      nombre: alumnoEditar.nombre,
-      apellido: alumnoEditar.apellido,
-      grado: alumnoEditar.grado,
-      seccion: alumnoEditar.seccion,
+      nombre: alumnoEditar?.nombre,
+      apellido: alumnoEditar?.apellido,
+      grado: alumnoEditar?.grado,
+      seccion: alumnoEditar?.seccion,
     });
   }, [alumnoEditar]);
 
