@@ -8,3 +8,8 @@ export const api = axios.create({
     'x-api-key': import.meta.env.VITE_API_KEY,
   },
 });
+
+// interceptor: Sucede antes de enviar la peticion
+api.interceptors.request.use(() => {
+  const token = localStorage.getItem('token');
+});
