@@ -19,3 +19,17 @@ export const validarCampos = (campos) => {
 
   return errores;
 };
+
+export const validarCamposLogin = (campos) => {
+  const errores = {};
+
+  if (campos.email.trim() === '') {
+    errores.email = 'El email es obligatorio';
+  }
+
+  if (campos.password.trim() === '') {
+    errores.password = 'La contraseña es obligatoria';
+  }
+
+  return errores;
+};
