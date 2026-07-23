@@ -1,9 +1,11 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { obtenerRolUsuario } from '../../utils/jwt';
 
 export const Encabezado = () => {
   const navigate = useNavigate();
   const usuarioGuardado = localStorage.getItem('usuario');
   const usuario = usuarioGuardado ? JSON.parse(usuarioGuardado) : null;
+  const rol = obtenerRolUsuario();
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -15,6 +17,12 @@ export const Encabezado = () => {
   return (
     <header>
       <h1>Colegio San Marcos - Sistema de Gestion</h1>
+
+      <nav>
+        <Link to='/'>Alumnos</Link>
+
+        {rol === 'ADMIN' && <Link to='/usuarios'>Usuarios</Link>}
+      </nav>
 
       <p>Usuario activo: {usuario.nombre}</p>
 
